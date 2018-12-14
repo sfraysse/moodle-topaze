@@ -1,0 +1,45 @@
+
+/*------------------------ View ----------------------*/
+
+#page-mod-topaze-view #region-main h2.main {
+    color: #333;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    text-align: center !important;
+    border: none !important;
+}
+#page-mod-topaze-view #region-main .myprofile {
+    display: none;
+    margin-bottom: 20px;
+}
+#page-mod-topaze-view #region-main .myprofile a {
+    display: block;
+}
+#page-mod-topaze-view #region-main .generalbox.statusbox {
+    border: 1px solid #F0F0F0;
+    background: #F9F9F9;
+    margin: 20px 10px 0 10px;
+    padding: 20px;
+}
+#page-mod-topaze-view #region-main .generalbox.statusbox.passed,
+#page-mod-topaze-view #region-main .generalbox.statusbox.completed {
+    border: 2px solid #85C440;
+}
+#page-mod-topaze-view #region-main .generalbox.statusbox.incomplete {
+    border: 2px solid #FDC200;
+}
+#page-mod-topaze-view #region-main .generalbox.statusbox.failed {
+    border: 2px solid #D53B3B;
+}
+#page-mod-topaze-view #region-main .status {
+    margin-bottom: 16px;
+}
+#page-mod-topaze-view #region-main .status p {
+    color: #999;
+    margin-bottom: 0;
+}
+#page-mod-topaze-view #region-main .status span.value {
+    color: #333;
+}
+
+
