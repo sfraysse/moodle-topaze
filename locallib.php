@@ -97,11 +97,34 @@ function topaze_save_manifest_data($cmid, $topazeid, $scoid) {
     $xmltext = preg_replace($pattern, $replacement, $xmltext);
     $objXML = new xml2Array();
     $xml = $objXML->parse($xmltext);
+
+    // Parse 1st level
+    foreach ($xml[0]['children'] as $xmltop) {
+        if ($xmltop['name'] == 'SCORE') {
+            // TBD
+        } else if ($xmltop['name'] == 'INDEXES') {
+            list($indicators, $mainindic) = topaze_get_indicators($xmltop, $topazeid, $scoid);
+        } else if ($xmltop['name'] == 'STEPS') {
+            list($steps, $tracking) = topaze_get_steps($xmltop, $topazeid, $scoid);
+        }
+    }
     
-    // Get indexes
+    // Update DB
+    $DB->set_field('topaze', 'mainindicator', $mainindic, array('scoid' => $scoid));
+    $DB->set_field('topaze', 'pathtracking', $tracking, array('scoid' => $scoid));
+    foreach ($indicators as $indic) {
+        $DB->insert_record('topaze_indicators', $indic);
+    }
+    foreach ($steps as $step) {
+        $DB->insert_record('topaze_steps', $step);
+    }
+}
+
+// Get manifest indicators 
+
+function topaze_get_indicators($xmlindics, $topazeid, $scoid) {
     $mainindic = '';
     $indicators = array();
-    $xmlindics = $xml[0]['children'][0];
     if (isset($xmlindics['children'])) { 
         foreach ($xmlindics['children'] as $xmlindic) {
             if ($xmlindic['name'] == 'GLOBALINDEX') {
@@ -116,10 +139,14 @@ function topaze_save_manifest_data($cmid, $topazeid, $scoid) {
             array_push($indicators, $indic);
         }
     }
-    
-    // Get steps
+    return array($indicators, $mainindic);
+}
+
+// Get manifest steps 
+
+function topaze_get_steps($xmlsteps, $topazeid, $scoid)
+{
     $steps = array();
-    $xmlsteps = $xml[0]['children'][1];
     if (isset($xmlsteps['attrs']['ROUTE']) && $xmlsteps['attrs']['ROUTE'] == 'true') $tracking = 1;
     else $tracking = 0;
     foreach ($xmlsteps['children'] as $xmlstep) {
@@ -133,16 +160,7 @@ function topaze_save_manifest_data($cmid, $topazeid, $scoid) {
         else $step->tracking = 1;
         array_push($steps, $step);
     }
-    
-    // Update DB
-    $DB->set_field('topaze', 'mainindicator', $mainindic, array('scoid'=>$scoid));
-    $DB->set_field('topaze', 'pathtracking', $tracking, array('scoid'=>$scoid));
-    foreach ($indicators as $indic) {
-        $DB->insert_record('topaze_indicators', $indic);
-    }
-    foreach ($steps as $step) {
-        $DB->insert_record('topaze_steps', $step);
-    }    
+    return array($steps, $tracking);
 }
 
 function topaze_update_manifest_data($cmid, $topazeid, $scoid) {
