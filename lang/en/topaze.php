@@ -88,6 +88,3 @@ $string['export_all_steps'] = 'Export all steps (CSV)';
 $string['error_empty_suspend_data'] = 'Opening issue';
 $string['error_json_decode'] = 'Indicator issue';
 
-$string['grademax'] = 'Max grade';
-$string['grademax_warning'] = "If this content provides a result indicator, please, enter its maximum value on the above field.";
-

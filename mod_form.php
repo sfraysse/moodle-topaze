@@ -60,14 +60,6 @@ class mod_topaze_mod_form extends moodleform_mod {
 		$mform->addElement('filepicker', 'packagefile', get_string('package','scormlite'));
 		$mform->addHelpButton('packagefile', 'package', 'scormlite');
 		$mform->addRule('packagefile', null, 'required', null, 'client');
-
-		// Grade max
-		$mform->addElement('text', 'grademax', get_string('grademax','topaze'), 'maxlength="3" size="3"');
-		$mform->setDefault('grademax', 100);
-		$mform->setType('grademax', PARAM_INT);
-		$mform->addRule('grademax', null, 'numeric', null, 'client');
-		$mform->addRule('grademax', null, 'nopunctuation', null, 'client');
-		$mform->addElement('html', '<p class="text-danger">'.get_string('grademax_warning','topaze').'</p>');
 		
 
 		//-------------------------------------------------------------------------------
@@ -164,12 +156,6 @@ class mod_topaze_mod_form extends moodleform_mod {
 	function data_preprocessing(&$default_values) {	
 		global $DB;
 
-		// Max grade
-		if (isset($this->_cm)) {
-			$grade = $DB->get_record('grade_items', array('courseid'=>$this->_course->id, 'itemmodule'=>$this->_modname, 'iteminstance'=>$this->_cm->instance));
-			if ($grade) $default_values['grademax'] = intval($grade->grademax);
-		}
-
 		// Get SCO data and assign it to the form  
 		if (isset($default_values['scoid']) && $default_values['scoid'] != null) {
 			global $DB;
@@ -205,11 +191,6 @@ class mod_topaze_mod_form extends moodleform_mod {
 	
 	function validation($data, $files) 	{
 		$errors = array();
-		
-		// Max grade
-		if ($data['grademax'] < 1) {
-			$errors['grademax'] = get_string('notvalidmaxgrade', 'scormlite');
-		}
 
 		// SCORM 2004 Lite Package
 		

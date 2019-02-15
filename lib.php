@@ -87,7 +87,11 @@ function topaze_add_instance($data, $mform=null) {
 		$data->scoid = $scoid;
 		$data->timemodified = time();
 		$data->id = $DB->insert_record('topaze', $data);
-        topaze_save_manifest_data($data->coursemodule, $data->id, $scoid);
+
+		// Grades min and max
+		list($grademin, $grademax) = topaze_save_manifest_data($data->coursemodule, $data->id, $scoid);
+		$data->grademin = $grademin;
+		$data->grademax = $grademax;
 	}
 	$DB->commit_delegated_transaction($transaction);
 
@@ -123,8 +127,12 @@ function topaze_update_instance($data, $mform) {
 		$scoid = scormlite_save_sco($data, $mform, $data->coursemodule, 'packagefile');
 		$data->timemodified = time();
 		$data->id = $data->instance;
+
+		// Grades min and max
+		list($grademin, $grademax) = topaze_update_manifest_data($data->coursemodule, $data->id, $scoid);
 		$DB->update_record('topaze', $data);
-        topaze_update_manifest_data($data->coursemodule, $data->id, $scoid);
+		$data->grademin = $grademin;
+		$data->grademax = $grademax;
 	}
 	$DB->commit_delegated_transaction($transaction);
 	
@@ -324,10 +332,14 @@ function topaze_grade_item_update($activity, $grades=null) {
         $params['idnumber'] = $activity->cmidnumber;
     }
     $params['gradetype'] = GRADE_TYPE_VALUE;
-    if (isset($activity->grademax)) {
-		$params['grademax']  = $activity->grademax;
+	
+	// Grades min and max
+	if (isset($activity->grademax)) {
+		$params['grademax'] = $activity->grademax;
 	}
-	$params['grademin']  = 0;
+	if (isset($activity->grademin)) {
+		$params['grademin'] = $activity->grademin;
+	}
 	
     if ($grades  === 'reset') {
         $params['reset'] = true;

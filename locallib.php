@@ -87,6 +87,10 @@ function topaze_save_manifest_data($cmid, $topazeid, $scoid) {
     global $CFG, $DB;
 	require_once($CFG->dirroot.'/mod/scorm/datamodels/scormlib.php');  // For xml2array
 
+	// Grades min and max
+    $grademin = null;
+    $grademax = null;
+
     // Get XML
 	$context = context_module::instance($cmid); // KD2014 - 2.6 compliance
     $fs = get_file_storage();
@@ -101,7 +105,17 @@ function topaze_save_manifest_data($cmid, $topazeid, $scoid) {
     // Parse 1st level
     foreach ($xml[0]['children'] as $xmltop) {
         if ($xmltop['name'] == 'SCORE') {
-            // TBD
+
+            // Grades min and max
+            foreach ($xmltop['children'] as $setting) {
+                if ($setting['name'] == 'MIN') {
+                    $grademin = isset($setting['tagData']) ? $setting['tagData'] : 0;
+                }
+                if ($setting['name'] == 'MAX') {
+                    $grademax = isset($setting['tagData']) ? $setting['tagData'] : 0;
+                }
+            }
+
         } else if ($xmltop['name'] == 'INDEXES') {
             list($indicators, $mainindic) = topaze_get_indicators($xmltop, $topazeid, $scoid);
         } else if ($xmltop['name'] == 'STEPS') {
@@ -118,6 +132,9 @@ function topaze_save_manifest_data($cmid, $topazeid, $scoid) {
     foreach ($steps as $step) {
         $DB->insert_record('topaze_steps', $step);
     }
+
+	// Grades min and max
+    return array($grademin, $grademax);
 }
 
 // Get manifest indicators 
