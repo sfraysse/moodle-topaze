@@ -88,3 +88,10 @@ $string['export_all_steps'] = 'Export all steps (CSV)';
 $string['error_empty_suspend_data'] = 'Opening issue';
 $string['error_json_decode'] = 'Indicator issue';
 
+// Privacy metadata
+$string['privacy:metadata:scormlite_scoes_track'] = 'The tracked data of the Topaze activity';
+$string['privacy:metadata:userid'] = 'The ID of the user who accessed the Topaze activity';
+$string['privacy:metadata:attempt'] = 'The attempt number';
+$string['privacy:metadata:scoes_track:element'] = 'The name of the element to be tracked';
+$string['privacy:metadata:scoes_track:value'] = 'The value of the given element';
+$string['privacy:metadata:timemodified'] = 'The time when the tracked element was last modified';
