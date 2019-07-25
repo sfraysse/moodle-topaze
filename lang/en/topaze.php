@@ -27,9 +27,9 @@
 // Plugin strings
 
 $string['scormlite'] = 'Topaze';
-$string['modulename'] = 'Topaze module';
+$string['modulename'] = 'Topaze';
 $string['modulename_help'] = 'Topaze activities enable to play content coming from Scenari Topaze authoring tool. Topaze activities provide extended reporting features compared to SCORM.';
-$string['modulenameplural'] = 'Topaze modules';
+$string['modulenameplural'] = 'Topaze';
 $string['pluginadministration'] = 'Topaze administration';
 $string['pluginname'] = 'Topaze';
 $string['page-mod-topaze-x'] = 'Any Topaze module page';
