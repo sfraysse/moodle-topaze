@@ -7,7 +7,7 @@ Les contenus Topaze respectent le standard SCORM Lite (cf http://scormlite.com).
 Vous êtes sur la page de la **version 3.5.1** du plugin Topaze, dernière version compatible avec **Moodle 3.5**.
 
 Ce plugin existe aussi pour les versions suivantes de Moodle :
-- **Moodle 3.4** : [Topaze 3.4](http://scormlite.com)
+- **Moodle 3.4** : [Topaze 3.4](https://github.com/sfraysse/moodle-topaze/tree/3.4)
 - **Moodle 3.6** : [Topaze 3.6](https://github.com/sfraysse/moodle-topaze/tree/3.6)
 
 
