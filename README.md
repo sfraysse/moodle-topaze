@@ -9,7 +9,7 @@ Vous êtes sur la page de la **version 3.6.1** du plugin Topaze, dernière versi
 Ce plugin existe aussi pour les versions suivantes de Moodle :
 - **Moodle 3.4** : [Topaze 3.4](https://github.com/sfraysse/moodle-topaze/tree/3.4)
 - **Moodle 3.5** : [Topaze 3.5](https://github.com/sfraysse/moodle-topaze/tree/3.5)
-- **Moodle 3.9** : [Topaze 3.9](https://github.com/sfraysse/moodle-topaze/tree/3.9)
+- **Moodle 3.9** : [Topaze 3.9](https://github.com/sfraysse/moodle-topaze)
 
 
 # Installation
