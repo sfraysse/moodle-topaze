@@ -245,9 +245,11 @@ function topaze_print_recent_mod_activity($activity, $courseid, $detail, $modnam
  * @return boolean
  * @todo Finish documenting this function
  **/
+/*
 function topaze_cron () {
     return true;
 }
+*/
 
 /**
  * Returns an array of users who are participanting in this topaze
